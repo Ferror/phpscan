@@ -2,6 +2,6 @@ language: php
 php:
     - '7.3'
 script:
-    - composer test
+    - make ci
 install:
     - composer install

@@ -4,7 +4,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dirName = dirname(__DIR__) . '/src';
+$dirName = dirname(__DIR__) . '/example';
 
 $allFiles = [];
 function a(&$allFiles, $dir) {
@@ -28,7 +28,7 @@ function a(&$allFiles, $dir) {
     }
 }
 
-a($allFiles, dirname(__DIR__) . '/src');
+a($allFiles, $dirName);
 var_dump($allFiles);
 
 $results = [];

@@ -4,6 +4,6 @@
 
 # Development plan
 - [X] Scan all files in ```src```
-- [ ] Read all files namespaces
-- [ ] Read all files used classes
-- [ ] Present what each class imports
+- [X] Read all files namespaces
+- [X] Read all files used classes
+- [X] Present what each class imports

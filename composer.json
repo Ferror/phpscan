@@ -1,16 +1,16 @@
 {
-    "name": "ferror/SymfonyBundle",
+    "name": "ferror/phpscan",
     "license": "MIT",
     "description": "",
     "type": "symfony-bundle",
     "autoload" : {
         "psr-4" : {
-            "Ferror\\Bundle\\SymfonyBundle\\" : "src/"
+            "Ferror\\Bundle\\PHPScan\\" : "src/"
         }
     },
     "autoload-dev" : {
         "psr-4" : {
-            "Ferror\\Bundle\\SymfonyBundle\\" : "tests/"
+            "Ferror\\Bundle\\PHPScan\\" : "tests/"
         }
     },
     "require": {
@@ -18,11 +18,5 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5"
-    },
-    "scripts": {
-        "test": [
-            "@phpunit"
-        ],
-        "phpunit": "./vendor/bin/phpunit tests --colors=always"
     }
 }

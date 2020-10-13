@@ -1,0 +1,78 @@
+#!/usr/bin/env php
+
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$dirName = dirname(__DIR__) . '/src';
+
+$allFiles = [];
+function a(&$allFiles, $dir) {
+    $ffs = scandir($dir);
+
+    unset($ffs[array_search('.', $ffs, true)]);
+    unset($ffs[array_search('..', $ffs, true)]);
+    unset($ffs[array_search('.gitignore', $ffs, true)]);
+
+    // prevent empty ordered elements
+    if (count($ffs) < 1) {
+        return;
+    }
+
+    foreach ($ffs as $ff) {
+        if (is_dir($dir . '/' . $ff)) {
+            a($allFiles, $dir . '/' . $ff);
+        } else {
+            $allFiles[] = $dir . '/' . $ff;
+        }
+    }
+}
+
+a($allFiles, dirname(__DIR__) . '/src');
+var_dump($allFiles);
+
+$results = [];
+$imports = [];
+foreach ($allFiles as $file) {
+    $open = fopen($file, 'rb');
+
+    if ($open === false) {
+        echo 'Cannot open file: ' . $file;
+        die;
+    }
+
+    while (!feof($open)) {
+        $line = fgets($open);
+
+        if (strpos($line, 'namespace') !== false) {
+            $results[] = $line;
+        }
+
+        if (strpos($line, 'use') !== false) {
+            $imports[] = $line;
+        }
+
+        if (strpos($line, 'class') !== false) {
+            break;
+        }
+    }
+
+    fclose($open);
+}
+
+$numberOfResults = count($results);
+for ($i = 0; $i < $numberOfResults; $i++) {
+    $results[$i] = str_replace('namespace', '', $results[$i]);
+    $results[$i] = str_replace(';', '', $results[$i]);
+    $results[$i] = trim($results[$i]);
+}
+var_dump($results);
+
+$numberOfImports = count($imports);
+for ($i = 0; $i < $numberOfImports; $i++) {
+    $imports[$i] = str_replace('use', '', $imports[$i]);
+    $imports[$i] = str_replace(';', '', $imports[$i]);
+    $imports[$i] = substr($imports[$i], 0, strpos($imports[$i], "as"));
+    $imports[$i] = trim($imports[$i]);
+}
+var_dump($imports);

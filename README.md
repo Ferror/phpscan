@@ -11,7 +11,7 @@
 # Usage
 
 ```
-composer require ferror/phpscan
+composer require --dev ferror/phpscan
 ```
 
 run in terminal

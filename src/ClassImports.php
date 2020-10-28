@@ -35,7 +35,7 @@ final class ClassImports
                     return new ClassType('application');
                 }
 
-                throw new \Exception('Invalid namespace');
+                throw new \Exception('Invalid namespace: ' . $import);
             },
             $this->imports
         );

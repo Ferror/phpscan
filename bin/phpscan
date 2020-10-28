@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use Ferror\Bundle\PHPScan\Trimmer;
 
-require __DIR__ . '/../vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-$dirName = dirname(__DIR__) . '/example';
+$dirName = dirname(__DIR__) . '/src';
 
 $allFiles = [];
 function a(&$allFiles, $dir) {

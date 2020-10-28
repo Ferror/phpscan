@@ -7,3 +7,15 @@
 - [X] Read all files namespaces
 - [X] Read all files used classes
 - [X] Present what each class imports
+
+# Usage
+
+```
+composer require ferror/phpscan
+```
+
+run in terminal
+
+```
+bin/phpscan
+```

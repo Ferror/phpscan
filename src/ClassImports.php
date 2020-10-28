@@ -14,7 +14,7 @@ final class ClassImports
         $this->imports = $imports;
     }
 
-    public function addImport(string $import)
+    public function addImport(string $import): void
     {
         $this->imports[] = $import;
     }
@@ -35,7 +35,7 @@ final class ClassImports
                     return new ClassType('application');
                 }
 
-                throw new \Exception('Invalid namespace: ' . $import);
+                return new ClassType('other');
             },
             $this->imports
         );
@@ -60,13 +60,7 @@ final class ClassImports
             }
         }
 
-        if ($type->isApplication()) {
-            if (!empty($hasInfra)) {
-                return false;
-            }
-        }
-
-        return true;
+        return !($type->isApplication() && !empty($hasInfra));
     }
 
     private function a($name)
@@ -83,6 +77,11 @@ final class ClassImports
             return new ClassType('application');
         }
 
-        throw new \Exception('Invalid namespace');
+        return new ClassType('other');
+    }
+
+    public function getClassName(): string
+    {
+        return $this->className;
     }
 }

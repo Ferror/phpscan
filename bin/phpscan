@@ -67,7 +67,7 @@ foreach ($allFiles as $file) {
 
 foreach ($results as $r) {
     if (!$r->isValid()) {
-        echo "invalid class: " . get_class($r) . "\n";
+        echo "invalid class: " . $r->getClassName() . "\n";
     }
 }
 

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Ferror\Bundle\SymfonyBundle\Domain;
+namespace Ferror\Bundle\PHPScan\Domain;
 
-use Ferror\Bundle\SymfonyBundle\Domain\SubDomain\Test as TestA;
+use Ferror\Bundle\PHPScan\Domain\SubDomain\Test as TestA;
 
 final class Test
 {

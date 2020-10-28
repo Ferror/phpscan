@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Ferror\Bundle\SymfonyBundle\Application;
+namespace Ferror\Bundle\PHPScan\Application;
 
 final class Test
 {

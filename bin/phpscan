@@ -1,6 +1,8 @@
 #!/usr/bin/env php
-
 <?php
+declare(strict_types=1);
+
+use Ferror\Bundle\PHPScan\Trimmer;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -29,11 +31,11 @@ function a(&$allFiles, $dir) {
 }
 
 a($allFiles, $dirName);
-//var_dump($allFiles);
 
 $results = [];
 $imports = [];
 $id = 0;
+$trimmer = new Trimmer();
 foreach ($allFiles as $file) {
     $open = fopen($file, 'rb');
 
@@ -46,11 +48,11 @@ foreach ($allFiles as $file) {
         $line = fgets($open);
 
         if (strpos($line, 'namespace') !== false) {
-            $results[$id] = new \Ferror\Bundle\PHPScan\ClassImports(trimNamespace($line), []);
+            $results[$id] = new \Ferror\Bundle\PHPScan\ClassImports($trimmer->trimNamespace($line), []);
         }
 
         if (strpos($line, 'use') !== false) {
-            $results[$id]->addImport(trimUse($line));
+            $results[$id]->addImport($trimmer->trimUse($line));
         }
 
         if (strpos($line, 'class') !== false) {
@@ -63,23 +65,10 @@ foreach ($allFiles as $file) {
     fclose($open);
 }
 
-function trimNamespace($line)
-{
-    $line = str_replace(['namespace', ';'], '', $line);
-
-    if ($as = strpos($line, 'as')) {
-        $line = substr($line, 0, $as);
+foreach ($results as $r) {
+    if (!$r->isValid()) {
+        echo "invalid class: " . get_class($r) . "\n";
     }
-
-    return trim($line);
 }
 
-function trimUse($line)
-{
-    $line = str_replace(['use', ';'], '', $line);
-    $line = substr($line, 0, strpos($line, "as"));
-
-    return trim($line);
-}
-
-var_dump($results);
+//var_dump($results);

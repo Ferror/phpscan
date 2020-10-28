@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Ferror\Bundle\SymfonyBundle\Domain\SubDomain;
+namespace Ferror\Bundle\PHPScan\Domain\SubDomain;
 
 final class Test
 {

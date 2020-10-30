@@ -3,6 +3,7 @@
         "Ferror\\Bundle\\SymfonyPackage": ["all"]
     },
     "copy-from-recipe": {
-        "config/": "%CONFIG_DIR%/"
+        "config/": "%CONFIG_DIR%/",
+        "bin/phpscan": "%BIN_DIR%/"
     }
 }

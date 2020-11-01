@@ -4,5 +4,6 @@
     },
     "copy-from-package": {
         "bin/phpscan": "%BIN_DIR%/phpscan"
-    }
+    },
+    "aliases": ["ferror-scan"]
 }

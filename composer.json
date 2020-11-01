@@ -2,8 +2,8 @@
     "name": "ferror/phpscan",
     "license": "MIT",
     "version": "1.0.0",
-    "description": "",
-    "type": "symfony-bundle",
+    "description": "Package scans projects source directory to check whether it uses proper layered namespaces",
+    "type": "library",
     "autoload" : {
         "psr-4" : {
             "Ferror\\Bundle\\PHPScan\\" : "src/"

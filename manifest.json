@@ -1,9 +1,9 @@
 {
     "bundles": {
-        "Ferror\\Bundle\\SymfonyPackage": ["all"]
+        "Ferror\\Bundle\\PHPScan": ["dev", "test"]
     },
     "copy-from-package": {
-        "bin/phpscan": "%BIN_DIR%/phpscan"
-    },
-    "aliases": ["ferror-scan"]
+        "bin/phpscan": "%BIN_DIR%/phpscan",
+        "config/phpscan.yaml": "%CONFIG_DIR%/phpscan.yaml"
+    }
 }

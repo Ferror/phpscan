@@ -1,0 +1,5 @@
+phpscan:
+    layers:
+        - 'Domain'
+        - 'Application'
+        - 'Infrastructure'

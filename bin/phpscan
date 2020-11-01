@@ -70,5 +70,3 @@ foreach ($results as $r) {
         echo "invalid class: " . $r->getClassName() . "\n";
     }
 }
-
-//var_dump($results);

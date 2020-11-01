@@ -1,7 +1,7 @@
 {
     "name": "ferror/phpscan",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Package scans projects source directory to check whether it uses proper layered namespaces",
     "type": "library",
     "autoload" : {

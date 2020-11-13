@@ -7,6 +7,7 @@ final class ClassImports
 {
     private $className;
     private $imports;
+    private $reasons = [];
 
     public function __construct(string $className, array $imports)
     {
@@ -21,41 +22,26 @@ final class ClassImports
 
     public function isValid(): bool
     {
-        $importTypes = array_map(
-            function ($import) {
-                if (strpos($import, 'Domain') !== false) {
-                    return new ClassType('domain');
-                }
-
-                if (strpos($import, 'Infrastructure') !== false) {
-                    return new ClassType('infrastructure');
-                }
-
-                if (strpos($import, 'Application') !== false) {
-                    return new ClassType('application');
-                }
-
-                return new ClassType('other');
-            },
-            $this->imports
-        );
-
-        $type = $this->a($this->className);
+        $importTypes = array_map([$this, 'getClassType'], $this->imports);
+        $type = $this->getClassType($this->className);
         $hasInfra = array_filter(
             $importTypes,
-            function (ClassType $type) {
+            static function (ClassType $type) {
                 return $type->isInfrastructure();
             }
         );
         $hasApp = array_filter(
             $importTypes,
-            function (ClassType $type) {
+            static function (ClassType $type) {
                 return $type->isApplication();
             }
         );
 
         if ($type->isDomain()) {
             if (!empty($hasApp) || !empty($hasInfra)) {
+                $this->reasons['application'] = $hasApp;
+                $this->reasons['infrastructure'] = $hasInfra;
+
                 return false;
             }
         }
@@ -63,21 +49,26 @@ final class ClassImports
         return !($type->isApplication() && !empty($hasInfra));
     }
 
-    private function a($name)
+    public function getReasons(): array
+    {
+        return $this->reasons;
+    }
+
+    private function getClassType($name): ClassType
     {
         if (strpos($name, 'Domain') !== false) {
-            return new ClassType('domain');
+            return new ClassType($name, 'domain');
         }
 
         if (strpos($name, 'Infrastructure') !== false) {
-            return new ClassType('infrastructure');
+            return new ClassType($name, 'infrastructure');
         }
 
         if (strpos($name, 'Application') !== false) {
-            return new ClassType('application');
+            return new ClassType($name, 'application');
         }
 
-        return new ClassType('other');
+        return new ClassType($name, 'other');
     }
 
     public function getClassName(): string

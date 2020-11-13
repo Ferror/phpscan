@@ -6,9 +6,11 @@ namespace Ferror\Bundle\PHPScan;
 final class ClassType
 {
     private $type;
+    private $name;
 
-    public function __construct(string $type)
+    public function __construct(string $name, string $type)
     {
+        $this->name = $name;
         $this->type = $type;
     }
 
@@ -25,5 +27,10 @@ final class ClassType
     public function isInfrastructure(): bool
     {
         return strtoupper($this->type) === 'INFRASTRUCTURE';
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

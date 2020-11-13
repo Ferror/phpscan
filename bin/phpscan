@@ -6,31 +6,7 @@ use Ferror\Bundle\PHPScan\Trimmer;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$dirName = dirname(__DIR__) . '/src';
-
-$allFiles = [];
-function a(&$allFiles, $dir) {
-    $ffs = scandir($dir);
-
-    unset($ffs[array_search('.', $ffs, true)]);
-    unset($ffs[array_search('..', $ffs, true)]);
-    unset($ffs[array_search('.gitignore', $ffs, true)]);
-
-    // prevent empty ordered elements
-    if (count($ffs) < 1) {
-        return;
-    }
-
-    foreach ($ffs as $ff) {
-        if (is_dir($dir . '/' . $ff)) {
-            a($allFiles, $dir . '/' . $ff);
-        } else {
-            $allFiles[] = $dir . '/' . $ff;
-        }
-    }
-}
-
-a($allFiles, $dirName);
+$allFiles = (new \Ferror\Bundle\PHPScan\FileLoader())->getAllFiles(dirname(__DIR__) . '/example');
 
 $results = [];
 $imports = [];
@@ -68,5 +44,13 @@ foreach ($allFiles as $file) {
 foreach ($results as $r) {
     if (!$r->isValid()) {
         echo "invalid class: " . $r->getClassName() . "\n";
+        echo "Because:\n";
+        echo "class: " . $r->getClassName() . " has:\n";
+        foreach ($r->getReasons()['application'] as $reason) {
+            echo "* " . $reason->getName() . " in Domain\n";
+        }
+        foreach ($r->getReasons()['infrastructure'] as $reason) {
+            echo "* " . $reason->getName() . " in Domain\n";
+        }
     }
 }

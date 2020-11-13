@@ -9,7 +9,7 @@ final class TrimmerTest extends TestCase
 {
     private $trimmer;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->trimmer = new Trimmer();
     }
